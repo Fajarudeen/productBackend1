@@ -1,13 +1,16 @@
+//express installing
 const express = require("express");
 const router = express.Router();
 
 //package installing for file upload
 const multer = require("multer");
+const app = express();
 
 //importing all functions from controller
 const {
   createProduct,
   getProduct,
+  viewProduct,
   updateProduct,
   deleteProduct,
 } = require("../controllers/productAuth");
@@ -15,7 +18,7 @@ const {
 //Using multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "../../backend study/html/product/public/uploads");
+    cb(null, "../../../../../../MEARN/React/product_frontend/public/uploads/");
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + file.originalname);
@@ -26,8 +29,9 @@ var upload = multer({ storage: storage });
 
 //Creating different path for the application
 router.get("/getItems", getProduct);
-router.post("/", upload.array("files"), createProduct);
-router.put("/updateProduct/:id", updateProduct);
+router.get("/getItems/:id", viewProduct);
+router.post("/",upload.array("files"),createProduct);
+router.put("/updateProduct/:id", upload.array("files"), updateProduct);
 router.delete("/deleteProduct/:id", deleteProduct);
 
 module.exports = router;
