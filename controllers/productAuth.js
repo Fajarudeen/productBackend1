@@ -112,6 +112,7 @@ const updateProduct = async (req, res) => {
     }
 
     // Update the product with the new data, including filesData if available
+
     const updateItems = await productSchema.findByIdAndUpdate(
       req.params.id,
       {
@@ -125,9 +126,9 @@ const updateProduct = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Updating product details",
+      message: "Product details updated",
       updatedProduct: updateItems,
-      
+
     });
   } catch (error) {
     return res.status(500).json({

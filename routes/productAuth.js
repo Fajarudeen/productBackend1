@@ -1,6 +1,8 @@
 //express installing
 const express = require("express");
 const router = express.Router();
+const path = require('path');
+
 
 //package installing for file upload
 const multer = require("multer");
@@ -18,7 +20,8 @@ const {
 //Using multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "../../../../../../MEARN/React/product_frontend/public/uploads/");
+    cb(null, path.join(__dirname, '../uploads/'));
+
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + file.originalname);
